@@ -16,52 +16,88 @@ const SignUp = () => {
     const navigate = useNavigate();
 
 
+    const onSubmit = async (data) => {
+        try {
+            const result = await createUser(data.email, data.password);
+            const loggedUser = result.user;
+            console.log(loggedUser);
 
+            await updateUserProfile(data.name, data.photoURL);
 
-    const onSubmit = data => {
-
-        console.log(data);
-        createUser(data.email, data.password)
-            .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
-
-                updateUserProfile(data.name, data.photoURL)
-
-                    .then(() => {
-                        const saveUser = { name: data.name, email: data.email } //get user name & email
-                        fetch('http://localhost:5000/users', {
-                            method: 'POST',
-                            headers: {
-                                'content-type': 'application/json'
-                            },
-                            body: JSON.stringify(saveUser)
-
-                        })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.insertedID) {
-
-                                    reset();
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: 'Account created successfully.',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                    });
-                                    navigate('/');
-                                }
-                            })
-
-                        // console.log("user profile info updated")
-
-                    }
-
-                    )
-                    .catch(error => console.log(error))
+            const saveUser = { name: data.name, email: data.email };
+            const response = await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(saveUser)
             });
+
+            const responseData = await response.json();
+
+            if (responseData.insertedID) {
+                reset();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Account created successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/');
+            }
+        } catch (error) {
+            console.error(error);
+            // Handle errors here
+        }
     };
+
+
+    // const onSubmit = data => {
+
+    //     console.log(data);
+    //     createUser(data.email, data.password)
+    //         .then(result => {
+    //             const loggedUser = result.user;
+    //             console.log(loggedUser);
+
+    //             updateUserProfile(data.name, data.photoURL)
+
+    //                 .then(() => {
+    //                     const saveUser = { name: data.name, email: data.email } //get user name & email
+    //                     fetch('http://localhost:5000/users', {
+    //                         method: 'POST',
+    //                         headers: {
+    //                             'content-type': 'application/json'
+    //                         },
+    //                         body: JSON.stringify(saveUser)
+
+    //                     })
+    //                         .then(res => res.json())
+    //                         .then(data => {
+    //                             if (data.insertedID) {
+
+    //                                 reset();
+    //                                 Swal.fire({
+    //                                     position: 'top-end',
+    //                                     icon: 'success',
+    //                                     title: 'Account created successfully.',
+    //                                     showConfirmButton: false,
+    //                                     timer: 1500
+    //                                 });
+    //                                 navigate('/');
+    //                             }
+    //                         })
+
+
+    //                     // console.log("user profile info updated")
+
+    //                 }
+
+    //                 )
+    //                 .catch(error => console.log(error))
+    //         });
+    // };
 
     return (
         <>

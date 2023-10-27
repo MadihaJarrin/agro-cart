@@ -10,10 +10,11 @@ import Swal from 'sweetalert2';
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
-    const { signIn } = useContext(AuthContext);
+    const { signIn, createUser } = useContext(AuthContext);
     // console.log(disabled);
     const navigate = useNavigate();
     const location = useLocation();
+
 
 
     const from = location.state?.from?.pathname || "/";
@@ -23,17 +24,16 @@ const Login = () => {
         loadCaptchaEnginge(6);
     }, [])
 
-    const handleLogin = event => {
+    const handleLogin = async (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
 
-        signIn(email, password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
+        if (createUser(email)) {
+            try {
+                await signIn(email, password);
 
                 Swal.fire({
                     title: 'Log in Successfull',
@@ -45,9 +45,34 @@ const Login = () => {
                     }
                 });
                 navigate(from, { replace: true });
+            } catch (error) {
+                // User is not registered, show alert
+                Swal.fire({
+                    title: 'Please Sign Up First',
+                    icon: 'warning',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
+            }
+        } else {
+            Swal.fire({
+                title: 'Login failed. Please check your credentials.',
+                icon: 'warning',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        }
 
-            })
     }
+
 
     const handleValidateCaptcha = () => {
         const user_captcha_value = captchaRef.current.value;
