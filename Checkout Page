@@ -1,0 +1,25 @@
+import React, { useState } from 'react';
+
+function CheckoutPage() {
+  const [cardDetails, setCardDetails] = useState({});
+
+  const handlePayment = async () => {
+    // Send payment information to your server for processing
+  };
+
+  return (
+    <div>
+      <form>
+        <input
+          type="text"
+          placeholder="Card Number"
+          onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
+        />
+        {/* Other input fields for card expiration date, CVV, etc. */}
+        <button onClick={handlePayment}>Pay Now</button>
+      </form>
+    </div>
+  );
+}
+
+export default CheckoutPage;
