@@ -1,0 +1,19 @@
+
+
+// ProductListing.js
+import React from 'react';
+
+function ProductListing({ products, onDelete }) {
+  return (
+    <div className="..."> {/* Tailwind CSS classes */}
+      {products.map((product) => (
+        <div key={product._id} className="..."> {/* Product display */}
+          <button onClick={() => onDelete(product._id)}>Delete</button>
+          {/* Display product information */}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default ProductListing;
