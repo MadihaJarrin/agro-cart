@@ -1,0 +1,26 @@
+// ProductUpdateForm.js
+import React, { useState } from 'react';
+
+function ProductUpdateForm({ product, onSubmit }) {
+  const [updatedProduct, setUpdatedProduct] = useState(product);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedProduct({ ...updatedProduct, [name]: value });
+  };
+
+  const handleUpdate = () => {
+    onSubmit(updatedProduct);
+  };
+
+  return (
+    <div className="..."> {/* Tailwind CSS classes */}
+      <input type="text" name="name" value={updatedProduct.name} onChange={handleInputChange} />
+      <input type="text" name="price" value={updatedProduct.price} onChange={handleInputChange} />
+      {/* Additional fields for product details */}
+      <button onClick={handleUpdate}>Update Product</button>
+    </div>
+  );
+}
+
+export default ProductUpdateForm;
