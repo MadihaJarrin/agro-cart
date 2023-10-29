@@ -10,10 +10,11 @@ const Order = () => {
     const [tabIndex, setTabIndex] = useState(0);
 
     const [list] = useCategories();
-    const Vagetables = list.filter(item => item.category === 'salad');
-    const nuts = list.filter(item => item.category === 'soup');
-    const fruits = list.filter(item => item.category === 'dessert');
-    const others = list.filter(item => item.category === 'pizza');
+    const Vagetables = list.filter(item => item.category === 'vegetable');
+    const nuts = list.filter(item => item.category === 'nuts');
+    const fruits = list.filter(item => item.category === 'fruits');
+    const rice = list.filter(item => item.category === 'rice');
+    const others = list.filter(item => item.category === 'others');
 
 
 
@@ -26,6 +27,7 @@ const Order = () => {
                     <Tab>Vagetables</Tab>
                     <Tab>Nuts</Tab>
                     <Tab>Fruits</Tab>
+                    <Tab>Rice</Tab>
                     <Tab>Others</Tab>
                 </TabList>
 
@@ -37,6 +39,9 @@ const Order = () => {
                 </TabPanel>
                 <TabPanel>
                     <OrderTab items={fruits}></OrderTab>
+                </TabPanel>
+                <TabPanel>
+                    <OrderTab items={rice}></OrderTab>
                 </TabPanel>
                 <TabPanel>
                     <OrderTab items={others}></OrderTab>
