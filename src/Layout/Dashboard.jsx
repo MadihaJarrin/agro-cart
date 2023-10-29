@@ -36,7 +36,6 @@ const Dashboard = () => {
                     <li><NavLink to="/order"><FaShopify></FaShopify> Our Shop</NavLink></li>
                     <li><NavLink to="/about"><FaPhoneVolume></FaPhoneVolume> Contact</NavLink></li>
                 </ul>
-
             </div>
         </div>
     );

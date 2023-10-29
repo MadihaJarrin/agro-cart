@@ -41,15 +41,15 @@ const ProductCard = ({ item }) => {
         }
         else {
             Swal.fire({
-                title: 'Please login to order',
+                title: 'Please sign-up to order',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Login now!'
+                confirmButtonText: 'Sign-ip now!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/login', { state: { from: location } })
+                    navigate('/signup', { state: { from: location } })
                 }
             })
 
