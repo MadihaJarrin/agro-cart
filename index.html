@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management and Security Enhancements</title>
+</head>
+<body>
+    <h1>Product Management</h1>
+    <button id="addProduct">Add Product</button>
+    <button id="editProduct">Edit Product</button>
+    <button id="deleteProduct">Delete Product</button>
+    <div id="productManagement"></div>
+
+    <h1>Security Enhancements</h1>
+    <button id="changePassword">Change Password</button>
+    <button id="enable2FA">Enable 2FA</button>
+    <div id="securityEnhancements"></div>
+
+    <h1>Notifications</h1>
+    <button id="purchaseNotification">Purchase Notification</button>
+    <button id="updateNotification">Update Notification</button>
+    <div id="notificationContainer" style="display: none;"></div>
+
+    <!-- JavaScript code to connect to the backend server -->
+    <script>
+        // Function to send a POST request to the server
+        function sendPOSTRequest(endpoint, data, callback) {
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                callback(result);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        document.getElementById("addProduct").addEventListener("click", () => {
+            const productName = prompt("Enter the product name:");
+            if (productName) {
+                sendPOSTRequest('/add-product', { productId: generateProductId(), productName }, (result) => {
+                    alert(result.message);
+                });
+            }
+        });
+
+        // Add a function to generate a unique product ID
+        function generateProductId() {
+            return Math.floor(Math.random() * 1000); // You can replace this with a more robust method
+        }
+    </script>
+    <!-- End of JavaScript code -->
+
+</body>
+</html>
