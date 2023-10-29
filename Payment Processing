@@ -1,0 +1,21 @@
+const express = require('express');
+const stripe = require('stripe')('YOUR_STRIPE_SECRET_KEY');
+const router = express.Router();
+
+router.post('/charge', async (req, res) => {
+  try {
+    const { cardNumber, /* other card details */ } = req.body;
+    // Use Stripe (or your payment gateway) API to process payment
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 1000, // The amount in cents (e.g., $10.00)
+      currency: 'usd',
+      payment_method: 'pm_card_visa', // Replace with actual payment method
+    });
+    // Send a success response if the payment is successful
+    res.json({ message: 'Payment successful' });
+  } catch (error) {
+    res.status(500).json({ error: 'Payment failed' });
+  }
+});
+
+module.exports = router;
