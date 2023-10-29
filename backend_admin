@@ -1,0 +1,51 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = 3000;
+
+// In-memory storage for product listings
+const products = new Map();
+
+app.use(bodyParser.json());
+
+// Middleware for security headers
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Content-Security-Policy', "default-src 'self'");
+    next();
+});
+
+// Product Management APIs
+app.post('/add-product', (req, res) => {
+    const { productId, productName } = req.body;
+    products.set(productId, productName);
+    res.status(201).json({ message: `Product '${productName}' added with ID ${productId}` });
+});
+
+app.put('/edit-product/:productId', (req, res) => {
+    const productId = req.params.productId;
+    const newProductName = req.body.productName;
+    if (products.has(productId)) {
+        products.set(productId, newProductName);
+        res.status(200).json({ message: `Product ID ${productId} updated to '${newProductName}'` });
+    } else {
+        res.status(404).json({ error: 'Product not found' });
+    }
+});
+
+app.delete('/delete-product/:productId', (req, res) => {
+    const productId = req.params.productId;
+    if (products.has(productId)) {
+        const productName = products.get(productId);
+        products.delete(productId);
+        res.status(200).json({ message: `Product ID ${productId} (${productName}) deleted` });
+    } else {
+        res.status(404).json({ error: 'Product not found' });
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Admin backend server is running on http://localhost:${port}`);
+});
+
