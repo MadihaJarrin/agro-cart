@@ -11,8 +11,6 @@ const ProductCard = ({ item }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-
-
     const handleAddToCart = item => {
         console.log(item);
         if (user && user.email) {

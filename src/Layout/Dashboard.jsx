@@ -29,7 +29,6 @@ const Dashboard = () => {
                         </NavLink>
                     </li>
                     <li><NavLink to='/dashboard/history'><GiWallet></GiWallet>Payment History</NavLink></li>
-
                     <div className="divider"></div>
                     <li><NavLink to='/'><FaHome></FaHome> Home </NavLink> </li>
                     <li><NavLink to='/categories'><MdCategory></MdCategory> Categories</NavLink></li>

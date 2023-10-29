@@ -20,41 +20,6 @@ const Login = () => {
         loadCaptchaEnginge(6);
     }, [])
 
-    // const handleLogin = (event) => {
-    //     event.preventDefault();
-    //     const form = event.target;
-    //     const email = form.email.value;
-    //     const password = form.password.value;
-    //     console.log(email, password);
-
-    //     if (createUser(email)) {
-
-    //         signIn(email, password);
-
-    //         Swal.fire({
-    //             title: 'Log in Successfull',
-    //             showClass: {
-    //                 popup: 'animate__animated animate__fadeInDown'
-    //             },
-    //             hideClass: {
-    //                 popup: 'animate__animated animate__fadeOutUp'
-    //             }
-    //         });
-    //         navigate(from, { replace: true });
-    //     } else {
-    //         Swal.fire({
-    //             title: 'Login failed. Please check your credentials.',
-    //             icon: 'warning',
-    //             showClass: {
-    //                 popup: 'animate__animated animate__fadeInDown'
-    //             },
-    //             hideClass: {
-    //                 popup: 'animate__animated animate__fadeOutUp'
-    //             }
-    //         });
-    //     }
-
-    // }
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
@@ -80,10 +45,7 @@ const Login = () => {
                 navigate(from, { replace: true });
 
             })
-
-
     }
-
 
     const handleValidateCaptcha = () => {
         const user_captcha_value = captchaRef.current.value;
@@ -95,16 +57,13 @@ const Login = () => {
             setDisabled(true)
         }
     }
-
-
-
     return (
 
         <>
             {/* <Helmet>
                 <title>AgroCart | Login</title>
             </Helmet> */}
-            <div className="hero min-h-scree pb-8
+            <div className="hero min-h-scree pb-8 pt-20
                          bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-400 to-90%">
                 <div>
                     <h1 className='font-sarif text-6xl font-extrabold text-white text-center m-10 pt-2 uppercase '>

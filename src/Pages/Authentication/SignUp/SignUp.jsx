@@ -57,7 +57,7 @@ const SignUp = () => {
             {/* <Helmet>
             <title>Groovestyle | Sign Up</title>
         </Helmet> */}
-            <div className="hero min-h-scree pb-10 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-violet-400 to-90%">
+            <div className="hero min-h-scree pb-10 bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-violet-400 to-90% pt-10">
                 <div>
                     <h1 className='font-sarif text-7xl font-extrabold text-white text-center m-20 uppercase '>Sign-up Now</h1>
 

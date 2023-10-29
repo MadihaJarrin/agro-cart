@@ -16,8 +16,6 @@ const Order = () => {
     const rice = list.filter(item => item.category === 'rice');
     const others = list.filter(item => item.category === 'others');
 
-
-
     return (
         <div>
             <ParallaxCover img={shopImg} title={'Order Your desire'} className="h-[200px]"></ParallaxCover>
