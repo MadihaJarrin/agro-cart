@@ -10,30 +10,63 @@ import Swal from 'sweetalert2';
 const Login = () => {
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
-    const { signIn, createUser } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
     // console.log(disabled);
     const navigate = useNavigate();
     const location = useLocation();
 
-
-
     const from = location.state?.from?.pathname || "/";
-
-
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, [])
 
-    const handleLogin = async (event) => {
+    // const handleLogin = (event) => {
+    //     event.preventDefault();
+    //     const form = event.target;
+    //     const email = form.email.value;
+    //     const password = form.password.value;
+    //     console.log(email, password);
+
+    //     if (createUser(email)) {
+
+    //         signIn(email, password);
+
+    //         Swal.fire({
+    //             title: 'Log in Successfull',
+    //             showClass: {
+    //                 popup: 'animate__animated animate__fadeInDown'
+    //             },
+    //             hideClass: {
+    //                 popup: 'animate__animated animate__fadeOutUp'
+    //             }
+    //         });
+    //         navigate(from, { replace: true });
+    //     } else {
+    //         Swal.fire({
+    //             title: 'Login failed. Please check your credentials.',
+    //             icon: 'warning',
+    //             showClass: {
+    //                 popup: 'animate__animated animate__fadeInDown'
+    //             },
+    //             hideClass: {
+    //                 popup: 'animate__animated animate__fadeOutUp'
+    //             }
+    //         });
+    //     }
+
+    // }
+    const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
 
-        if (createUser(email)) {
-            try {
-                await signIn(email, password);
+        signIn(email, password)
+
+            .then(result => {
+                const user = result.user;
+                console.log(user);
 
                 Swal.fire({
                     title: 'Log in Successfull',
@@ -45,31 +78,9 @@ const Login = () => {
                     }
                 });
                 navigate(from, { replace: true });
-            } catch (error) {
-                // User is not registered, show alert
-                Swal.fire({
-                    title: 'Please Sign Up First',
-                    icon: 'warning',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                });
-            }
-        } else {
-            Swal.fire({
-                title: 'Login failed. Please check your credentials.',
-                icon: 'warning',
-                showClass: {
-                    popup: 'animate__animated animate__fadeInDown'
-                },
-                hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp'
-                }
-            });
-        }
+
+            })
+
 
     }
 
@@ -84,6 +95,8 @@ const Login = () => {
             setDisabled(true)
         }
     }
+
+
 
     return (
 
@@ -122,7 +135,7 @@ const Login = () => {
                                         <LoadCanvasTemplate />
                                     </label>
                                     <input type="text" ref={captchaRef} name="captcha" placeholder="type the captcha above" className="input input-bordered" />
-                                    <button onClick={handleValidateCaptcha} className="btn btn-outline btn-accent btn-xs mt-4 ">Validation</button>
+                                    <button onClick={handleValidateCaptcha} required className="btn btn-outline btn-accent btn-xs mt-4 ">Validation</button>
                                 </div>
                                 <div className="form-control mt-6">
                                     <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
