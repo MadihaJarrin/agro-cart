@@ -3,7 +3,7 @@
 const CreateCustomer = () => {
     return (
         <div>
-            
+            Create New Customer details
         </div>
     );
 };
