@@ -14,7 +14,7 @@ const Home = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5000/customer')
+            .get('http://localhost:5000/customer') // to connect to local port
             .then((response) => {
                 setCustomer(response.data.data);
                 setLoading(false);
@@ -36,7 +36,8 @@ const Home = () => {
             {loading ? (
                 <Spinner />
             ) : (
-                <table className='w-full border-separate border-spacing-2'>
+               // To create the box and buttons in the front page
+               <table className='w-full border-separate border-spacing-2'>
                     <thead>
                         <tr>
                             <th className='border border-slate-600 rounded-md'></th>

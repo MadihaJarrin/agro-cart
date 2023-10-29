@@ -27,7 +27,7 @@ app.use('/customer', customerRoute);
 
 
 
-
+// Connecting to MongoDb server
 mongoose.connect(mongoDBURL).then(() =>{
     console.log('App is coonected to database');
     app.listen(PORT, () => {

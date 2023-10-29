@@ -9,3 +9,4 @@ const DeleteCustomer = () => {
 };
 
 export default DeleteCustomer;
+// this page is used for Deleting customer details

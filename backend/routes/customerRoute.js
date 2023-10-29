@@ -1,3 +1,4 @@
+// Pages for routes
 import express from 'express';
 import { Customer } from '../models/customerModel.js';
 
